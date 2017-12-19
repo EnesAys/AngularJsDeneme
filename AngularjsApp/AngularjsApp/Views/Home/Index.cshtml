@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<input ng-model="myData" />
+@* expression diyoruz. sayfaya model binding sağlar. *@
+<p>{{myData}}</p>
+
+<button ng-click="counter=counter+1">Tıkla</button>
+<p>Tıklama Sayısı : <span>{{counter}}</span></p>
+
+<p>5x3= {{5*3}}</p>
+
+<ul ng-init='data=[
+    {"name":"ali","age":21},
+    {"name":"veli"},
+    {"name":"can","age":20}
+    ]'>
+    <li ng-repeat="item in data">{{item}}</li>
+</ul>
+
+<p ng-repeat="item in data | orderBy:'-age'">{{item.name | uppercase}} {{item.age}}</p>
+
+
+
+<button ng-init="Model=false;" ng-click="Model=!Model">Göster</button>
+<p ng-show="Model">Gizli içerik</p>
+
+
+<div ng-controller="myCtrl">
+    @* controller scope içersinde çalışıyoruz *@
+
+    <button ng-click="Calistir()">Çalıştır</button>
+
+    <p>{{Adi}}</p>
+
+    <p>{{deger}}</p>
+
+
+    <button ng-click="VeriCek()">Veri Al</button>
+
+    <ul>
+        <li ng-repeat="item in JsonDosya">{{item.name}}</li>
+    </ul>
+
+</div>
+
+
+@section myscript{
+
+    <script>
+
+    app.controller("myCtrl", myCtrl);
+
+    //view - controller veri alış verişini sağlar
+    //eğer farklı servis veya yapılara ihtiyaç varsa , ile ayrılarak hepsi controller içerisine enjekte edilir.
+    myCtrl.$inject = ["$scope","$http"];
+
+    //c# class benzer
+    function myCtrl($scope,$http) {
+
+        var deger = 0; // field
+
+        //private method
+        (Baslat = function () {
+            alert("Başlat");
+        })();
+
+        $scope.JsonDosya = [];
+
+        $scope.Adi = "Ali"; //public property
+        //public method;
+        $scope.Calistir = function () {
+            alert("Çalıştır");
+        };
+        $scope.VeriCek = function () {
+            $http.get("/data.json")
+                .then(function (cevap) {
+                    console.log(cevap);
+
+                    $scope.JsonDosya = cevap.data;
+
+                })
+                .catch(function (hata) {
+                    console.log(hata);
+                });
+        }
+    }
+    
+    </script>
+
+}
+

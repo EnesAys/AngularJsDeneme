@@ -1,0 +1,18 @@
+﻿    <!DOCTYPE html>
+
+<html ng-app="MyApp">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/angular.min.js"></script>
+
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+    <script src="~/Scripts/Custom/app.js"></script>
+
+    @RenderSection("myscript",false)
+</body>
+</html>

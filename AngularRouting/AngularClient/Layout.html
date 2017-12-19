@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <base href="/anasayfa" />
+</head>
+<body>
+
+    <header>
+        <h2>MySite</h2>
+    </header>
+
+    <nav>
+        <a href="/anasayfa">Anasayfa</a>
+        <a href="/hakkimizda">Hakkımızda</a>
+        <a href="/iletisim">İletişim</a>
+        <a href="/kategoriler">Kategorilerimiz</a>
+    </nav>
+    <!-- dinamik alan ng-view içerisinde tanımlanıyor -->
+    <section>
+        <div ng-view></div>
+    </section>
+
+    <footer>
+        <p>Tüm Hakları saklıdır &copy;</p>
+    </footer>
+
+    <!-- angularscripts -->
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-route.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+
+    <!-- pageScripts -->
+    <!-- routeScript tüm script dosyalarının üstünde olmalıdır. -->
+    <script src="routeScript.js"></script>
+    <script src="kategorilerScipt.js"></script>
+    <script src="urunScript.js"></script>
+</body>
+</html>

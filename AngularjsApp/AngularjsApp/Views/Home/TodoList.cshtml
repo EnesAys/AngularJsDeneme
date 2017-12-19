@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "TodoList";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>TodoList</h2>
+
+<div ng-controller="todoCtrl">
+
+    <input type="text" ng-model="model" />
+    <button ng-click="Ekle()">Ekle</button>
+
+
+    <div ng-repeat="item in data track by $index">
+
+        @* $index dizinin içindeki itemi verir *@
+
+        <p>{{item}} &nbsp; &nbsp; <a href="" ng-click="Sil($index)">Sil</a> &nbsp; &nbsp; </p>
+
+    </div>
+
+</div>
+
+@section myscript{
+    
+    <script>
+
+        app.controller("todoCtrl", todoCtrl);
+
+        //view - controller veri alış verişini sağlar
+        //eğer farklı servis veya yapılara ihtiyaç varsa , ile ayrılarak hepsi controller içerisine enjekte edilir.
+        todoCtrl.$inject = ["$scope", "$http"];
+
+
+        //c# class benzer
+        function todoCtrl($scope, $http) {
+            $scope.data = ["item1", "item2", "item3"];
+            $scope.model = null;
+
+            $scope.Ekle = function () {
+                $scope.data.push($scope.model);
+            }
+
+            $scope.Sil = function (index) {
+                $scope.data.splice(index, 1);
+            }
+
+        }
+
+    </script>
+
+    
+    }
+
+

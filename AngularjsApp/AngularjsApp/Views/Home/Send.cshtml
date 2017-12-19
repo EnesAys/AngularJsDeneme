@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Send";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+
+
+<h2>Send</h2>
+<div ng-controller="formCtrl">
+
+    <form name="frm">
+        <span style="color:red;" ng-show="frm.adi.$error.required">Adinizi Boş Geçmeyiniz</span>
+        <input required type="text" ng-model="Model.Adiniz" value="" name="adi" placeholder="Adınız" />
+        <br />
+        <span style="color:red;" ng-show="frm.mail.$invalid">E-Posta Boş Geçmeyiniz</span>
+        <input type="email" ng-model="Model.EPosta" name="mail" value="" required placeholder="E-Posta" />
+        <br />
+        <input type="text" ng-model="Model.Konu" placeholder="Konu" required value="" />
+        <br />
+        <textarea cols="10" rows="5" required ng-model="Model.Mesaj"></textarea>
+        <br />
+        <input ng-disabled="frm.$invalid" type="button" ng-click="Send()" value="Gönder" />
+    </form>
+
+
+    <p>Adiniz : {{Model.Adiniz}}</p>
+    <p>EPosta:{{Model.EPosta}}</p>
+</div>
+
+
+@section myscript{
+
+    <script>
+        app.controller("formCtrl", formCtrl);
+
+        formCtrl.$inject = ["$scope", "$http"];
+
+        function formCtrl($scope,$http) {
+
+            $scope.Model = {};
+
+            $scope.Send = function () {
+                $http.post("/Home/Send", $scope.Model)
+                .then(function (res) {
+                    console.log(res.data);
+                })
+                .catch(function (err) {
+                    console.log(err);
+                })
+            }
+
+        }
+
+
+    </script>
+    
+    
+    }
+
+
+
+
+
+
+
